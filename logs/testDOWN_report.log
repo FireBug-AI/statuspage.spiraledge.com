@@ -21,3 +21,4 @@ Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;Sp
 Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3402
 Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3260
 2023-11-16 07:00, failed
+2023-11-16 07:11, failed; HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3236
