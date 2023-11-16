@@ -53,17 +53,19 @@ function getColor(uptimeVal) {
 
 function constructStatusSquare(key, date, uptimeVal) {
   const color = getColor(uptimeVal);
-  let square = templatize("statusSquareTemplate", {
-    color: color,
-    tooltip: getTooltip(key, date, color),
-  });
-
+  let timeFailure;
+  if (color === 'failure') {
+      timeFailure = date.toTimeString().split(' ')[0]; // Adjust the format as needed
+  }
+  let square = templatize("statusSquareTemplate", { color: color, tooltip: getTooltip(key, date, color), });
+  
   const show = () => {
-    showTooltip(square, key, date, color);
+      showTooltip(square, key, date, color, timeFailure);
   };
   square.addEventListener("mouseover", show);
   square.addEventListener("mousedown", show);
   square.addEventListener("mouseout", hideTooltip);
+
   return square;
 }
 
@@ -214,21 +216,21 @@ function splitRowsByDate(rows) {
 }
 
 let tooltipTimeout = null;
-function showTooltip(element, key, date, color) {
+function showTooltip(element, key, date, color, timeFailure) {
   clearTimeout(tooltipTimeout);
   const toolTipDiv = document.getElementById("tooltip");
-
   document.getElementById("tooltipDateTime").innerText = date.toDateString();
-  document.getElementById("tooltipDescription").innerText =
-    getStatusDescriptiveText(color);
-
+  let descriptionText = getStatusDescriptiveText(color);
+  if (timeFailure) {
+      descriptionText += ' Time of failure: ' + timeFailure;
+  }
+  document.getElementById("tooltipDescription").innerText = descriptionText;
   const statusDiv = document.getElementById("tooltipStatus");
   statusDiv.innerText = getStatusText(color);
   statusDiv.className = color;
 
   toolTipDiv.style.top = element.offsetTop + element.offsetHeight + 10;
-  toolTipDiv.style.left =
-    element.offsetLeft + element.offsetWidth / 2 - toolTipDiv.offsetWidth / 2;
+  toolTipDiv.style.left = element.offsetLeft + element.offsetWidth / 2 - toolTipDiv.offsetWidth / 2;
   toolTipDiv.style.opacity = "1";
 }
 
