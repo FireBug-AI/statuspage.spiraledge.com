@@ -38,7 +38,7 @@ do
         else
             result="failed"
             # If failed, append the response details to the result
-            result="$result ; $responseDetails"
+            #result="$result ; $responseDetails"
         fi
         if [ "$result" = "success" ]; then
             break
