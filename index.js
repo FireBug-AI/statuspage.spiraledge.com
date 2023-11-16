@@ -182,7 +182,8 @@ function splitRowsByDate(rows) {
       continue;
     }
 
-    const [dateTimeStr, resultStr] = row.split(",", 2);
+    //new
+    const [dateTimeStr, resultStr, responseDetails] = row.split(",", 3);
     const dateTime = new Date(Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT"));
     const dateStr = dateTime.toDateString();
 
@@ -199,6 +200,8 @@ function splitRowsByDate(rows) {
     if (resultStr.trim() == "success") {
       result = 1;
     }
+    //new
+    let resultWithDetails = resultStr.trim() + "; " + responseDetails.trim();
     sum += result;
     count++;
 
