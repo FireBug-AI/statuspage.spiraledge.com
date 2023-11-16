@@ -16,17 +16,6 @@
 2023-11-16 06:39, failed
 2023-11-16 06:44, failed
 2023-11-16 06:54, failed
-Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3366
-Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3677
-Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3402
-Response details: HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3260
-2023-11-16 07:00, failed
-2023-11-16 07:11, failed; HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3236
-2023-11-16 07:16, failed; HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3869
-2023-11-16 07:22, failed; HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3840
-2023-11-16 07:24, failed , HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3073
-2023-11-16 07:33, failed , HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3317
-2023-11-16 07:37, failed ; HTTPCode:404;HTTPConnect:000;NumConnects:1;SizeDownload:279;SpeedDownload:3257
 2023-11-16 07:42, failed
 2023-11-16 07:43, failed
 2023-11-16 07:53, failed
