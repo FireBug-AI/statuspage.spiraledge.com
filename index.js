@@ -171,28 +171,19 @@ function normalizeData(statusLines) {
 }
 
 function getFailureMessage(rows) {
-  // Get the current date in 'YYYY-MM-DD' format
-  const currentDate = new Date().toISOString().split('T')[0];
-
-  // Reverse the rows array
   const reversedRows = rows.slice().reverse();
-
-  // Initialize failureMessage as an empty string
-  let failureMessage = '';
-
-  // Find the latest row with a failure from the current date
+  // Find the latest row with a failure
+  for (let i = rows.length - 1; i >= 0; i--) {
+    const row = rows[i];
   for (let i = 0; i < reversedRows.length; i++) {
     const row = reversedRows[i];
-    // Extract the date from the row
-    const rowDate = extractDateFromRow(row);
-    if (rowDate === currentDate && row.includes('failed')) {
-      failureMessage = row;
-      break;
+    if (row.includes('failed')) {
+      return row;
     }
   }
 
-  // Return the failureMessage
-  return failureMessage;
+  // If no failures, return an empty string or a default message
+  return '';
 }
 
 function extractDateFromRow(row) {
