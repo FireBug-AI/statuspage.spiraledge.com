@@ -30,15 +30,21 @@ function constructStatusStream(key, url, uptimeData) {
     upTime: uptimeData.upTime,
   });
 
+  //new
+  for (var ii = maxDays - 1; ii >= 0; ii--) {
+    let line = constructStatusLine(key, ii, uptimeData[ii], uptimeData.failureMessage);
+    streamContainer.appendChild(line);
+  }
+
   container.appendChild(streamContainer);
   return container;
 }
 
-function constructStatusLine(key, relDay, upTimeArray) {
+function constructStatusLine(key, relDay, upTimeArray,failureMessage) {
   let date = new Date();
   date.setDate(date.getDate() - relDay);
 
-  return constructStatusSquare(key, date, upTimeArray);
+  return constructStatusSquare(key, date, upTimeArray,failureMessage);
 }
 
 function getColor(uptimeVal) {
@@ -163,7 +169,16 @@ function normalizeData(statusLines) {
   }
 
   relativeDateMap.upTime = dateNormalized.upTime;
+  //new line:
+  relativeDateMap.failureMessage = getFailureMessage(rows);
+
   return relativeDateMap;
+}
+
+function getFailureMessage(rows) {
+  // This is a placeholder implementation. You'll need to replace it with code that
+  // extracts the actual failure message from your log data.
+  return rows[rows.length - 1];
 }
 
 function getDayAverage(val) {
