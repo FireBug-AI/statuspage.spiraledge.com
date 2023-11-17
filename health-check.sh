@@ -26,7 +26,7 @@ do
     echo " $key=$url"
     for i in 1 2 3 4;
     do
-        responseDetails=$(curl --write-out "HTTPCode:%{http_code};HTTPConnect:%{http_connect};NumConnects:%{num_connects};SizeDownload:%{size_download};SpeedDownload:%{speed_download}" --silent --output /dev/null $url)
+        responseDetails=$(curl --write-out "HTTPCode:%{http_code}" --silent --output /dev/null $url)
         response=$(echo $responseDetails | grep -oP '(?<=HTTPCode:)\d+')
         if [ "$response" -eq 200 ] || [ "$response" -eq 202 ] || [ "$response" -eq 301 ] || [ "$response" -eq 302 ] || [ "$response" -eq 307 ]; then
             result="success"
