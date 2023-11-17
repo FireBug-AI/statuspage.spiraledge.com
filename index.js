@@ -173,8 +173,6 @@ function normalizeData(statusLines) {
 function getFailureMessage(rows) {
   const reversedRows = rows.slice().reverse();
   // Find the latest row with a failure
-  for (let i = rows.length - 1; i >= 0; i--) {
-    const row = rows[i];
   for (let i = 0; i < reversedRows.length; i++) {
     const row = reversedRows[i];
     if (row.includes('failed')) {
@@ -184,11 +182,6 @@ function getFailureMessage(rows) {
 
   // If no failures, return an empty string or a default message
   return '';
-}
-
-function extractDateFromRow(row) {
-  // Split the row by comma and return the first element
-  return row.split(',')[0];
 }
 
 function getDayAverage(val) {
