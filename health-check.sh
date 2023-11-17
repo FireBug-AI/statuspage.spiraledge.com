@@ -2,11 +2,6 @@
 # without committing. This avoids generating several commits that would make
 # later upstream merges messy for anyone who forked us.
 commit=true
-origin=$(git remote get-url origin)
-if [[ $origin == *statsig-io/statuspage* ]]
-then
-  commit=false
-fi
 # ---------
 KEYSARRAY=()
 URLSARRAY=()
