@@ -171,13 +171,15 @@ function normalizeData(statusLines) {
 }
 
 function getFailureMessage(rows) {
+  const reversedRows = rows.slice().reverse();
   // Find the latest row with a failure
-  for (let i = rows.length - 1; i >= 0; i--) {
-    const row = rows[i];
+  for (let i = 0; i < reversedRows.length; i++) {
+    const row = reversedRows[i];
     if (row.includes('failed')) {
       return row;
     }
   }
+
   // If no failures, return an empty string or a default message
   return '';
 }
