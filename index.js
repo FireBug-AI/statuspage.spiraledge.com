@@ -121,7 +121,7 @@ function getStatusText(color) {
     : color == "failure"
     ? "Major Outage"
     : color == "partial"
-    ? "Partial Outage"
+    ? "Server Disruption"
     : "Unknown";
 }
 
@@ -131,9 +131,9 @@ function getStatusDescriptiveText(color) {
     : color == "success"
     ? "No downtime recorded on this day."
     : color == "failure"
-    ? "Major outages recorded on this day."
+    ? "Major DOWN recorded on this day."
     : color == "partial"
-    ? "Partial outages recorded on this day."
+    ? "Partial DOWN recorded on this day."
     : "Unknown";
 }
 
