@@ -196,8 +196,8 @@ function getFailureMessage(rows) {
 }
 
 function extractDateFromRow(row) {
-  // Replace this with code that extracts the date from the row
-  return '';
+  // Split the row by comma and return the first element
+  return row.split(',')[0];
 }
 
 function getDayAverage(val) {
