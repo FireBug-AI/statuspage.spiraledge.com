@@ -171,16 +171,21 @@ function normalizeData(statusLines) {
 }
 
 function getFailureMessage(rows) {
+  // Get the current date in 'YYYY-MM-DD' format
+  const currentDate = new Date().toISOString().split('T')[0];
+
   // Reverse the rows array
   const reversedRows = rows.slice().reverse();
 
   // Initialize failureMessage as an empty string
   let failureMessage = '';
 
-  // Find the latest row with a failure
+  // Find the latest row with a failure from the current date
   for (let i = 0; i < reversedRows.length; i++) {
     const row = reversedRows[i];
-    if (row.includes('failed')) {
+    // Assume the date is at the start of the row in 'YYYY-MM-DD' format
+    const rowDate = row.split(',')[0];
+    if (rowDate === currentDate && row.includes('failed')) {
       failureMessage = row;
       break;
     }
