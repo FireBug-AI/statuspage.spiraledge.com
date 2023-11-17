@@ -52,17 +52,15 @@ function getColor(uptimeVal) {
 }
 
 function constructStatusSquare(key, date, uptimeVal) {
-  const color = getColor(uptimeVal.result);
+  const color = getColor(uptimeVal);
   let timeFailure;
-  let errorMessage;
   if (color === 'failure') {
       timeFailure = date.toTimeString().split(' ')[0]; // Adjust the format as needed
-      errorMessage = uptimeVal.errorMessage;
   }
   let square = templatize("statusSquareTemplate", { color: color, tooltip: getTooltip(key, date, color), });
   
   const show = () => {
-      showTooltip(square, key, date, color, timeFailure, errorMessage);
+      showTooltip(square, key, date, color, timeFailure);
   };
   square.addEventListener("mouseover", show);
   square.addEventListener("mousedown", show);
@@ -186,6 +184,7 @@ function splitRowsByDate(rows) {
       continue;
     }
 
+    //new
     const [dateTimeStr, resultStr] = row.split(",", 2);
     const dateTime = new Date(Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT"));
     const dateStr = dateTime.toDateString();
@@ -199,12 +198,16 @@ function splitRowsByDate(rows) {
       }
     }
 
-    let [result, errorMessage] = resultStr.trim().split(";");
-    result = result === "success" ? 1 : 0;
+    let result = 0;
+    if (resultStr.trim() == "success") {
+      result = 1;
+    }
+    //new
+    //let resultWithDetails = resultStr.trim() + "; " + responseDetails.trim();
     sum += result;
     count++;
 
-    resultArray.push({ result, errorMessage });
+    resultArray.push(result);
   }
 
   const upTime = count ? ((sum / count) * 100).toFixed(2) + "%" : "--%";
@@ -218,8 +221,8 @@ function showTooltip(element, key, date, color, timeFailure) {
   const toolTipDiv = document.getElementById("tooltip");
   document.getElementById("tooltipDateTime").innerText = date.toDateString();
   let descriptionText = getStatusDescriptiveText(color);
-  if (color === 'failure' && timeFailure) {
-      descriptionText += '\nTime of failure: ' + timeFailure;
+  if (timeFailure) {
+      descriptionText += '\n Time of failure: ' + timeFailure;
   }
   document.getElementById("tooltipDescription").innerText = descriptionText;
   const statusDiv = document.getElementById("tooltipStatus");
