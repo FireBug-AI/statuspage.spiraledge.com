@@ -52,15 +52,17 @@ function getColor(uptimeVal) {
 }
 
 function constructStatusSquare(key, date, uptimeVal) {
-  const color = getColor(uptimeVal);
+  const color = getColor(uptimeVal.result);
   let timeFailure;
+  let errorMessage;
   if (color === 'failure') {
       timeFailure = date.toTimeString().split(' ')[0]; // Adjust the format as needed
+      errorMessage = uptimeVal.errorMessage;
   }
   let square = templatize("statusSquareTemplate", { color: color, tooltip: getTooltip(key, date, color), });
   
   const show = () => {
-      showTooltip(square, key, date, color, timeFailure);
+      showTooltip(square, key, date, color, timeFailure, errorMessage);
   };
   square.addEventListener("mouseover", show);
   square.addEventListener("mousedown", show);
