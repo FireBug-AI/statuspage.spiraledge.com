@@ -119,7 +119,7 @@ function getStatusText(color) {
     : color == "success"
     ? "Fully Operational"
     : color == "failure"
-    ? "Major Outage"
+    ? "Fully DOWN"
     : color == "partial"
     ? "Server Disruption"
     : "Unknown";
