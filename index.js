@@ -184,7 +184,6 @@ function splitRowsByDate(rows) {
       continue;
     }
 
-    //new
     const [dateTimeStr, resultStr] = row.split(",", 2);
     const dateTime = new Date(Date.parse(dateTimeStr.replace(/-/g, "/") + " GMT"));
     const dateStr = dateTime.toDateString();
@@ -198,16 +197,12 @@ function splitRowsByDate(rows) {
       }
     }
 
-    let result = 0;
-    if (resultStr.trim() == "success") {
-      result = 1;
-    }
-    //new
-    //let resultWithDetails = resultStr.trim() + "; " + responseDetails.trim();
+    let [result, errorMessage] = resultStr.trim().split(";");
+    result = result === "success" ? 1 : 0;
     sum += result;
     count++;
 
-    resultArray.push(result);
+    resultArray.push({ result, errorMessage });
   }
 
   const upTime = count ? ((sum / count) * 100).toFixed(2) + "%" : "--%";
@@ -221,8 +216,8 @@ function showTooltip(element, key, date, color, timeFailure) {
   const toolTipDiv = document.getElementById("tooltip");
   document.getElementById("tooltipDateTime").innerText = date.toDateString();
   let descriptionText = getStatusDescriptiveText(color);
-  if (timeFailure) {
-      descriptionText += ' Time of failure: ' + timeFailure;
+  if (color === 'failure' && timeFailure) {
+      descriptionText += '\nTime of failure: ' + timeFailure;
   }
   document.getElementById("tooltipDescription").innerText = descriptionText;
   const statusDiv = document.getElementById("tooltipStatus");
