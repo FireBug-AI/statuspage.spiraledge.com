@@ -15,7 +15,8 @@ async function genReportLog(container, key, url) {
 function constructStatusStream(key, url, uptimeData) {
   let streamContainer = templatize("statusStreamContainerTemplate");
   for (var ii = maxDays - 1; ii >= 0; ii--) {
-    let line = constructStatusLine(key, ii, uptimeData[ii]);
+    #let line = constructStatusLine(key, ii, uptimeData[ii]);
+     let line = constructStatusLine(key, ii, uptimeData[ii], uptimeData.failureMessage);
     streamContainer.appendChild(line);
   }
 
@@ -30,11 +31,6 @@ function constructStatusStream(key, url, uptimeData) {
     upTime: uptimeData.upTime,
   });
 
-  //new
-  for (var ii = maxDays - 1; ii >= 0; ii--) {
-    let line = constructStatusLine(key, ii, uptimeData[ii], uptimeData.failureMessage);
-    streamContainer.appendChild(line);
-  }
 
   container.appendChild(streamContainer);
   return container;
