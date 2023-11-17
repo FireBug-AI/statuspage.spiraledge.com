@@ -51,16 +51,20 @@ function getColor(uptimeVal) {
     : "partial";
 }
 
-function constructStatusSquare(key, date, uptimeVal) {
+function constructStatusSquare(key, date, uptimeVal, lastFailureMessage) {
   const color = getColor(uptimeVal);
   let timeFailure;
+  let failureMessage;
   if (color === 'failure') {
       timeFailure = date.toTimeString().split(' ')[0]; // Adjust the format as needed
+  }
+  if (color === 'partial') {
+      failureMessage = lastFailureMessage; // Adjust as needed based on your data
   }
   let square = templatize("statusSquareTemplate", { color: color, tooltip: getTooltip(key, date, color), });
   
   const show = () => {
-      showTooltip(square, key, date, color, timeFailure);
+      showTooltip(square, key, date, color, timeFailure, failureMessage);
   };
   square.addEventListener("mouseover", show);
   square.addEventListener("mousedown", show);
@@ -216,13 +220,16 @@ function splitRowsByDate(rows) {
 }
 
 let tooltipTimeout = null;
-function showTooltip(element, key, date, color, timeFailure) {
+function showTooltip(element, key, date, color, timeFailure, failureMessage) {
   clearTimeout(tooltipTimeout);
   const toolTipDiv = document.getElementById("tooltip");
   document.getElementById("tooltipDateTime").innerText = date.toDateString();
   let descriptionText = getStatusDescriptiveText(color);
   if (timeFailure) {
       descriptionText += '\n Time of failure: ' + timeFailure;
+  }
+  if (failureMessage) {
+      descriptionText += '\n Last failure message: ' + failureMessage;
   }
   document.getElementById("tooltipDescription").innerText = descriptionText;
   const statusDiv = document.getElementById("tooltipStatus");
