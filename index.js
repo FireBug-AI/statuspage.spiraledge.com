@@ -183,8 +183,8 @@ function getFailureMessage(rows) {
   // Find the latest row with a failure from the current date
   for (let i = 0; i < reversedRows.length; i++) {
     const row = reversedRows[i];
-    // Assume the date is at the start of the row in 'YYYY-MM-DD' format
-    const rowDate = row.split(',')[0];
+    // Extract the date from the row
+    const rowDate = extractDateFromRow(row);
     if (rowDate === currentDate && row.includes('failed')) {
       failureMessage = row;
       break;
@@ -193,6 +193,11 @@ function getFailureMessage(rows) {
 
   // Return the failureMessage
   return failureMessage;
+}
+
+function extractDateFromRow(row) {
+  // Replace this with code that extracts the date from the row
+  return '';
 }
 
 function getDayAverage(val) {
