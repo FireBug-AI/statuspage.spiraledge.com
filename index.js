@@ -262,3 +262,18 @@ async function genAllReports() {
     await genReportLog(document.getElementById("reports"), key, url);
   }
 }
+
+async function genAllReports_ThirdServices() {
+  const response = await fetch("urls_services.cfg");
+  const configText = await response.text();
+  const configLines = configText.split("\n");
+  for (let ii = 0; ii < configLines.length; ii++) {
+    const configLine = configLines[ii];
+    const [key, url] = configLine.split("=");
+    if (!key || !url) {
+      continue;
+    }
+
+    await genReportLog(document.getElementById("reports"), key, url);
+  }
+}
