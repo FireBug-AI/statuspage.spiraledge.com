@@ -171,17 +171,23 @@ function normalizeData(statusLines) {
 }
 
 function getFailureMessage(rows) {
+  // Reverse the rows array
   const reversedRows = rows.slice().reverse();
+
+  // Initialize failureMessage as an empty string
+  let failureMessage = '';
+
   // Find the latest row with a failure
   for (let i = 0; i < reversedRows.length; i++) {
     const row = reversedRows[i];
     if (row.includes('failed')) {
-      return row;
+      failureMessage = row;
+      break;
     }
   }
 
-  // If no failures, return an empty string or a default message
-  return '';
+  // Return the failureMessage
+  return failureMessage;
 }
 
 function getDayAverage(val) {
